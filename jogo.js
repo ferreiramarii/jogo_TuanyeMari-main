@@ -104,19 +104,9 @@ function animate(){
     if (teclas["ArrowRight"])
         x += velocidade;
 
-    // Calcula o centro do quadrado
-    var centroX = x + 17.5;
-    var centroY = y + 17.5;
-
-    // Calcula a distância entre o centro do quadrado e o centro do círculo
-    var distancia = Math.sqrt(
-    (centroX - xc) * (centroX - xc) +
-    (centroY - 322) * (centroY - 322)
-    );
-
-    // Se a distância for menor que o raio do círculo, identifica colisão
-    // e já reseta desenhando os pontinhos novamente 
-    if (distancia < 35 + 17.5) {
+    // Verifica colisão entre jogador e círculo central
+    if (x + 35 > xc - 35 && x < xc + 35 && y + 35 > 322 - 35 && y < 322 + 35  ){
+        // Redesenha os pontinhos e redefine as variaáveis com seus valores iniciais 
         x = 60;
         y = 80;
         coletados = 0;
@@ -185,12 +175,7 @@ function animate(){
         c.fill();
 
         // Verifica colisão entre o jogador e o ponto
-        if (
-            pontos[i].w + 8 > x &&
-            pontos[i].w - 8 < x + 35 &&
-            pontos[i].z + 8 > y &&
-            pontos[i].z - 8 < y + 35
-        ) {
+        if (pontos[i].w + 8 > x && pontos[i].w - 8 < x + 35 && pontos[i].z + 8 > y && pontos[i].z - 8 < y + 35){
             // Remove o ponto coletado
             pontos.splice(i, 1);
             coletados++;
