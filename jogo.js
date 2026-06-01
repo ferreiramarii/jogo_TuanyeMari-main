@@ -46,6 +46,19 @@ for (var i = 0; i < 25; i++) {
     });
 }
 
+// Função que vai reiniciar os pontos quando houver colisão com o círculo do meio
+function reiniciarJogo() {
+    x = 60;
+    y = 80;
+    coletados = 0;
+    pontos = [];
+    for (var i = 0; i < 25; i++) {
+        pontos.push({
+            w: random(0, canvas.width - 16),
+            z: random(0, canvas.height - 16)
+        });
+    }
+}
 
 // Função principal da animação
 function animate(){
@@ -70,7 +83,7 @@ function animate(){
     
     // Desenha um círculo branco que vai simular estar tremendo na tela
     c.beginPath();
-    c.arc(xc, 322, 25, 0, Math.PI * 2, false);
+    c.arc(xc, 322, 35, 0, Math.PI * 2, false);
     c.fillStyle = "#ffffff";
     c.fill();
 
@@ -90,7 +103,7 @@ function animate(){
     c.clearRect(x, y, 35, 35);
 
     // Define a cor do jogador
-    c.fillStyle = "#fc0af0";
+    c.fillStyle = "#d805fe";
 
     // Movimentação usando as setas do teclado
     if (teclas["ArrowUp"])
@@ -104,6 +117,21 @@ function animate(){
 
     if (teclas["ArrowRight"])
         x += velocidade;
+
+    // Calcula o centro do quadrado
+    var centroX = x + 17.5;
+    var centroY = y + 17.5;
+
+    // Calcula a distância entre o centro do quadrado e o centro do círculo
+    var distancia = Math.sqrt(
+    (centroX - xc) * (centroX - xc) +
+    (centroY - 322) * (centroY - 322)
+    );
+
+    // Se a distância for menor que o raio do círculo, identifica colisão
+    if (distancia < 35 + 17.5) {
+        reiniciarJogo();
+    }
 
     // Desenha o jogador (quadrado rosa)
     c.fillRect(x, y, 35, 35);
