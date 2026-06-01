@@ -46,20 +46,6 @@ for (var i = 0; i < 25; i++) {
     });
 }
 
-// Função que vai reiniciar os pontos quando houver colisão com o círculo do meio
-function reiniciarJogo() {
-    x = 60;
-    y = 80;
-    coletados = 0;
-    pontos = [];
-    for (var i = 0; i < 25; i++) {
-        pontos.push({
-            w: random(0, canvas.width - 16),
-            z: random(0, canvas.height - 16)
-        });
-    }
-}
-
 // Função principal da animação
 function animate(){
 
@@ -130,7 +116,16 @@ function animate(){
 
     // Se a distância for menor que o raio do círculo, identifica colisão
     if (distancia < 35 + 17.5) {
-        reiniciarJogo();
+        x = 60;
+        y = 80;
+        coletados = 0;
+        pontos = [];
+        for (var i = 0; i < 25; i++) {
+            pontos.push({
+                w: random(0, canvas.width - 16),
+                z: random(0, canvas.height - 16)
+            });
+        }
     }
 
     // Desenha o jogador (quadrado rosa)
