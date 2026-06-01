@@ -115,6 +115,7 @@ function animate(){
     );
 
     // Se a distância for menor que o raio do círculo, identifica colisão
+    // e já reseta desenhando os pontinhos novamente 
     if (distancia < 35 + 17.5) {
         x = 60;
         y = 80;
